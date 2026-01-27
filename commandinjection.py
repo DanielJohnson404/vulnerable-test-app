@@ -3,7 +3,8 @@ import os
 
 def list_files(path):
     # ❌ Vulnerable: Command Injection
-    command = "ls " + path
+    import shlex
+    command = "ls " + shlex.quote(path).replace(";", "")
     os.system(command)
 
 # Example malicious input:
