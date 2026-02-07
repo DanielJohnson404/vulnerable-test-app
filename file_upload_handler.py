@@ -5,7 +5,7 @@ UPLOAD_DIR = "/var/www/uploads/"
 
 def save_file(filename, content):
     # ❌ Vulnerable: Path Traversal
-    file_path = UPLOAD_DIR + filename
+    file_path = os.path.join(UPLOAD_DIR, os.path.basename(filename))
 
     with open(file_path, "w") as f:
         f.write(content)
