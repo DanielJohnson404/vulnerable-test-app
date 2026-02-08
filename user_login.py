@@ -5,14 +5,8 @@ def authenticate(username, password):
     conn = sqlite3.connect("app.db")
     cursor = conn.cursor()
 
-    # ❌ Vulnerable: SQL Injection
-    query = (
-        "SELECT * FROM users WHERE username = '"
-        + username
-        + "' AND password = '"
-        + password
-        + "'"
-    )
+    # Fixed: Using parameterized query to prevent SQL Injection
+    query = "SELECT * FROM users WHERE username = ? AND password = ?"
 
-    cursor.execute(query)
+    cursor.execute(query, (username, password))
     return cursor.fetchone()
