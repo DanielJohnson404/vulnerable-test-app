@@ -2,6 +2,6 @@
 import subprocess
 
 def cleanup(temp_dir):
-    # ❌ Vulnerable: Command Injection
-    cmd = f"rm -rf {temp_dir}"
-    subprocess.call(cmd, shell=True)
+    # Fixed: Command Injection resolved by using a list of arguments and shell=False
+    cmd = ["rm", "-rf", temp_dir]
+    subprocess.call(cmd, shell=False)
